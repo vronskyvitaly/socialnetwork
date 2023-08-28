@@ -1,31 +1,19 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import './App.css';
+import {Header} from "components/Header";
+import {Navbar} from "components/Navbar";
+import {Profile} from "components/Profile";
 
 
 
 function App() {
     return (
-        <>
-            <p>Соц сеть</p>
-        </>
+        <div className="app-wrapper">
+            <Header/>
+            <Navbar/>
+            <Profile/>
+        </div>
     )
 }
 export default App;
 
-
-
-
-
-
-
-
-type ItemAcordionMenuPropsType = {
-    item: string
-}
-const ItemAcordionMenu = (props: ItemAcordionMenuPropsType) => {
-    return (
-        <>
-            <li>{props.item}</li>
-        </>
-    )
-}
