@@ -1,8 +1,9 @@
 import React from 'react';
+import s from './Profile.module.css'
 
 export const Profile = () => {
     return (
-        <div className={"content"}>
+        <div className={s.content}>
             <div>
                 <img src="https://png.pngtree.com/background/20210712/original/pngtree-abstract-modern-neon-frame-background-picture-image_1178251.jpg" alt=""/>
             </div>

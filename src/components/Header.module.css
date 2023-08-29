@@ -1,0 +1,13 @@
+.header{
+    grid-area: h;
+    background-color: blue;
+    display: flex;
+    align-items: center;
+}
+
+.header p {
+    font-size: 30px;
+    font-weight: bold;
+    padding-left: 10px;
+    color: aliceblue;
+}

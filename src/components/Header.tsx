@@ -1,9 +1,10 @@
 import React from 'react';
+import  s from './Header.module.css';
 
 export const Header = () => {
     return (
-        <header className={"header"}>
-            <p>VK</p>
+        <header className={s.header}>
+            <p>Сетка</p>
         </header>
     );
 };
