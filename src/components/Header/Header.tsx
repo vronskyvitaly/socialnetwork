@@ -1,10 +1,10 @@
 import React from 'react';
-import  s from './Header.module.css';
+import  s from 'components/Header/Header.module.css';
 
 export const Header = () => {
     return (
         <header className={s.header}>
-            <p>Сетка</p>
+            <p className={s.logo}>Сетка</p>
         </header>
     );
 };

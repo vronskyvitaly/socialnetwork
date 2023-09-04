@@ -1,0 +1,17 @@
+
+
+
+
+.avatar_post{
+    width: 30px;
+    height: 30px;
+    border-radius: 100px;
+    background-color: #605f5f;
+}
+
+.post {
+    padding-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
