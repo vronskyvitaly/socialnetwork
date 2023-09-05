@@ -1,27 +1,27 @@
 
-
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-a{
-  text-decoration:none;
+a {
+    text-decoration: none;
 }
 
 
-
-.app-wrapper{
-  display: grid;
-  grid-template-areas:
+.app-wrapper {
+    display: grid;
+    grid-template-areas:
           "h h h"
-          "n c c";
-;
-  grid-template-rows: 60px 1fr;
-  grid-template-columns: 2fr 10fr;
+          "n c c";;
+    grid-template-rows: 60px 1fr;
+    grid-template-columns: 2fr 10fr;
 }
 
+.app-wrapper-content {
+  grid-area: c;
+}
 
 
 
