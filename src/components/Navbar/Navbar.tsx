@@ -6,10 +6,10 @@ export const Navbar = () => {
     return (
         <nav className={s.nav}>
             <div className={s.item}>
-                <NavLink to ="/profile">Profile</NavLink>
+                <NavLink to ="/profile" activeClassName={s.active}>Profile</NavLink>
             </div>
             <div className={s.item}>
-                <NavLink to ="/dialogs">Messages</NavLink>
+                <NavLink to ="/dialogs" activeClassName={s.active}>Messages</NavLink>
             </div>
             <div className={s.item}>
                 <a  className={s.link} href={"#!"}>News</a>

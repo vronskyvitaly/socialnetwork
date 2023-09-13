@@ -17,13 +17,21 @@
     padding-top: 20px;
 }
 
+/*стили для ссылок в Navbar*/
 .item a {
     font-size: 20px;
     color: #605f5f;
     border-style: none;
 }
 
+/*при наведении на ссылку*/
 .item a:hover{
     font-weight: bolder;
     color: #0a0a0a;
+}
+
+/*компонента NavLink добавляет класс active*/
+.item a.active{
+    font-weight: bold;
+    color: #0808f1;
 }
