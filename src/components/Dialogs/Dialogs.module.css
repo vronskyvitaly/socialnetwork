@@ -1,0 +1,14 @@
+.dialogsPages_wrapper{
+    display: grid;
+    grid-template-columns: 2fr 8fr;
+    margin: 20px;
+}
+
+
+.dialog {
+    margin-top: 10px;
+}
+
+.message {
+    padding-top: 10px;
+}
