@@ -8,9 +8,9 @@ type PostPropsType = {
 
 export const Post = (props:PostPropsType) => {
     return (
-        <div className={s.post}>
-            <div className={s.avatar_post}></div>
-            <p>{props.message}</p>
+        <div className={s.post_wrapper}>
+            <div className={s.post_avatar}></div>
+            <p className={s.post_message}>{props.message}</p>
         </div>
     );
 };
