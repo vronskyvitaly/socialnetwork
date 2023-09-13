@@ -8,18 +8,22 @@
 
 .item {
     padding-bottom: 10px;
+    font-size: 20px;
+    color: #605f5f;
+    border-style: none;
 }
 
 .item_setting{
     padding-top: 20px;
 }
 
-.link {
+.item a {
     font-size: 20px;
     color: #605f5f;
     border-style: none;
 }
 
-.link:hover{
+.item a:hover{
+    font-weight: bolder;
     color: #0a0a0a;
 }

@@ -6,7 +6,7 @@ export const Profile = () => {
     return (
         <div>
             <div>
-                <img src="https://png.pngtree.com/background/20210712/original/pngtree-abstract-modern-neon-frame-background-picture-image_1178251.jpg" alt=""/>
+                <img className={s.img_style} src="https://png.pngtree.com/background/20210712/original/pngtree-abstract-modern-neon-frame-background-picture-image_1178251.jpg" alt=""/>
             </div>
             <div>
                 ava+description
