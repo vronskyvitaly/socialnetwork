@@ -1,20 +1,17 @@
 import React from 'react';
 import {Post} from "components/Profile/MyPosts/Post/Post";
 import s from "./MyPosts.module.css"
+import {PostsDataType} from "index";
 
 
-type PostsDataType = {
-    id:number
-    message:string
+type MyPostsPropsType = {
+    postsData:PostsDataType[]
 }
 
-export const MyPosts = () => {
+export const MyPosts = (props:MyPostsPropsType) => {
 
 
-    const postsData:PostsDataType[] = [
-        {id:1 , message:"One message"},
-        {id:2 , message:"Two message"},
-    ]
+    const postsElements = props.postsData.map(p=> <Post message={p.message}/>)
 
     return (
         <div className={s.mуPosts_wrapper}>
@@ -32,13 +29,7 @@ export const MyPosts = () => {
             </div>
             <div className={s.posts}>
                 {/*<Post message={"One message"}/>*/}
-                {postsData.map(po=>{
-
-                    return(
-                        <Post message={po.message}/>
-                    )
-                })}
-
+                {postsElements}
             </div>
         </div>
     )
