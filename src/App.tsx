@@ -5,13 +5,12 @@ import {Navbar} from "components/Navbar/Navbar";
 import {Profile} from "components/Profile/Profile";
 import {Dialogs} from "components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
-import {DialogsDataType, MessagesDataType, PostsDataType} from "index";
+import {StateType} from "redux/state";
+
 
 
 type AppPropsType = {
-    postsData: PostsDataType[]
-    dialogsData: DialogsDataType[]
-    messagesData: MessagesDataType[]
+    state:StateType
 }
 
 
@@ -24,9 +23,19 @@ function App(props:AppPropsType) {
                 <div className={"app-wrapper-content"}>
                     {/*<Route path={"/dialogs"} component={Dialogs}/>
                     <Route path={"/profile"} component={Profile}/>*/}
-
-                    <Route path={"/dialogs"} render={()=><Dialogs dialogsData = {props.dialogsData} messagesData ={props.messagesData} />}/>
-                    <Route path={"/profile"} render={()=><Profile postsData ={props.postsData} />}/>
+                    <Route
+                        path={"/dialogs"}
+                        render={()=>
+                            <Dialogs
+                                dialogs={props.state["dialogsPage"].dialogs}
+                                messages={props.state["dialogsPage"].messages}/>}
+                    />
+                    <Route
+                        path={"/profile"}
+                        render={()=>
+                            <Profile
+                                posts={props.state["profilePage"].posts}/>}
+                    />
 
                 </div>
             </div>

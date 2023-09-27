@@ -1,17 +1,18 @@
 import React from 'react';
 import {Post} from "components/Profile/MyPosts/Post/Post";
 import s from "./MyPosts.module.css"
-import {PostsDataType} from "index";
+import {DialogsDataType, MessagesDataType, PostsDataType} from "redux/state";
+
 
 
 type MyPostsPropsType = {
-    postsData:PostsDataType[]
+    posts:PostsDataType[]
 }
 
 export const MyPosts = (props:MyPostsPropsType) => {
 
 
-    const postsElements = props.postsData.map(p=> <Post message={p.message}/>)
+    const postsElements = props.posts.map(p=> <Post message={p.message}/>)
 
     return (
         <div className={s.mуPosts_wrapper}>
