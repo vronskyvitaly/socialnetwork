@@ -6,6 +6,8 @@ import {PostsDataType} from "redux/state";
 
 type MyPostsPropsType = {
     posts: PostsDataType[]
+    addPost: (postMessage: string) => void
+
 }
 
 export const MyPosts = (props: MyPostsPropsType) => {
@@ -16,9 +18,17 @@ export const MyPosts = (props: MyPostsPropsType) => {
     let newPostElement: RefObject<HTMLTextAreaElement> = React.createRef()
 
     const addPost = () => {
-        let text = newPostElement.current?.value
-        alert(text)
-    }
+        if (newPostElement.current) {
+            let text = newPostElement.current.value;
+            if (text !== "") {
+                props.addPost(text);
+            } else {
+                props.addPost("Новый пост");
+            }
+            // Очистка текстового поля после отправки поста (необходимо добавить еще в условия код)
+            newPostElement.current.value = "";
+        }
+    };
 
     return (
         <div className={s.my_Posts_wrapper}>

@@ -69,6 +69,10 @@ export const state:StateType = {
             {id:3 , message:"Завтра встретимся?"},
         ]
     }
+}
 
-
+export const addPost = (postMessage:string ) => {
+    let newPost = {id:new Date().getTime() , message:postMessage};
+    state.profilePage.posts.push(newPost)
+    console.log(state)
 }
