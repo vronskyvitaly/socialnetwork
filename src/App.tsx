@@ -16,7 +16,6 @@ type AppPropsType = {
 
 function App(props:AppPropsType) {
     return (
-        <BrowserRouter>
             <div className="app-wrapper">
                 <Header/>
                 <Navbar/>
@@ -39,7 +38,6 @@ function App(props:AppPropsType) {
 
                 </div>
             </div>
-        </BrowserRouter>
     )
 }
 
