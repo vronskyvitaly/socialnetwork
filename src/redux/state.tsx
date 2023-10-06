@@ -1,5 +1,4 @@
-
-
+import {renderEntireTree} from "render";
 
 
 export type PostsDataType = {
@@ -74,5 +73,5 @@ export const state:StateType = {
 export const addPost = (postMessage:string ) => {
     let newPost = {id:new Date().getTime() , message:postMessage};
     state.profilePage.posts.push(newPost)
-    console.log(state)
+    renderEntireTree(state)
 }
