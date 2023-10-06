@@ -1,7 +1,3 @@
-let renderEntireTree = () => {
-}
-
-
 export type PostsDataType = {
     id: number
     message: string
@@ -33,8 +29,20 @@ export type StateType = {
 
 }
 
-export const state: StateType = {
+export type StoreType = {
+    _state: StateType,
+    getState:()=> StateType
+    _callSubscriber: (state:StateType) => void,
+    addPost: () => void,
+    updateNewPostText: (newText: string) => void,
+    subscribe: (observer: () => void) => void
+}
 
+
+
+
+export const store:StoreType = {
+    _state: {
     profilePage: {
         posts: [
             {id: 1, message: "One message"},
@@ -55,26 +63,27 @@ export const state: StateType = {
             {id: 3, message: "Завтра встретимся?"},
         ]
     }
-}
-
-export const addPost = () => {
-    let newPost = {id: new Date().getTime(), message: state.profilePage.newPostsText};
-    state.profilePage.posts.push(newPost)
-    // первый способ очистить input после добавления
-    updateNewPostText("")
-    /*
-    // второй способ очистить input после добавления
-    state.profilePage.newPostsText = ""
-    */
-    renderEntireTree()
-}
-
-export const updateNewPostText = (newText: string) => {
-    state.profilePage.newPostsText = newText
-    renderEntireTree()
-}
-
-
-export const subscribe = (observer:()=>void) => {
-   renderEntireTree = observer
+},
+    getState (){
+        return this._state
+    },
+    _callSubscriber(state:StateType){},
+    addPost ()  {
+        let newPost = {id: new Date().getTime(), message: this._state.profilePage.newPostsText};
+        this._state.profilePage.posts.push(newPost)
+        // первый способ очистить input после добавления
+        this.updateNewPostText("")
+        /*
+        // второй способ очистить input после добавления
+        state.profilePage.newPostsText = ""
+        */
+        this._callSubscriber(this._state)
+    },
+    updateNewPostText (newText: string) {
+        this._state.profilePage.newPostsText = newText
+        this._callSubscriber(this._state)
+    },
+    subscribe (observer:()=>void) {
+        this._callSubscriber = observer
+    }
 }
