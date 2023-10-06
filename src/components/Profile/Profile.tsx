@@ -6,7 +6,9 @@ import {PostsDataType} from "redux/state";
 
 type ProfilePropsType = {
     posts: PostsDataType[]
-    addPost: (postMessage: string) => void
+    addPost: () => void
+    newPostsText: string
+    updateNewPostText:(newPost:string) =>void
 }
 
 export const Profile = (props: ProfilePropsType) => {
@@ -15,7 +17,9 @@ export const Profile = (props: ProfilePropsType) => {
         <div>
             <ProfileInfo/>
             <MyPosts posts={props.posts}
+                     newPostsText ={props.newPostsText}
                      addPost={props.addPost}
+                     updateNewPostText ={props.updateNewPostText}
             />
         </div>
     );

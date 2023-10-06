@@ -6,7 +6,9 @@ import {PostsDataType} from "redux/state";
 
 type MyPostsPropsType = {
     posts: PostsDataType[]
-    addPost: (postMessage: string) => void
+    addPost: () => void
+    newPostsText: string
+    updateNewPostText: (newPost: string) => void
 
 }
 
@@ -20,22 +22,28 @@ export const MyPosts = (props: MyPostsPropsType) => {
     const addPost = () => {
         if (newPostElement.current) {
             let text = newPostElement.current.value;
-            if (text !== "") {
-                props.addPost(text);
-            } else {
-                props.addPost("Новый пост");
+            if (text.trim() !== "") {
+                props.addPost();
             }
-            // Очистка текстового поля после отправки поста (необходимо добавить еще в условия код)
-            newPostElement.current.value = "";
         }
     };
+
+    const onPostChangeHandler = () => {
+        if (newPostElement.current) {
+            let text = newPostElement.current.value;
+            props.updateNewPostText(text)
+        }
+    }
 
     return (
         <div className={s.my_Posts_wrapper}>
             <div>
                 <h3>My posts</h3>
                 <div>
-                    <textarea ref={newPostElement}></textarea>
+                    <textarea onChange={onPostChangeHandler}
+                              ref={newPostElement}
+                              value={props.newPostsText}
+                    ></textarea>
                 </div>
                 <div>
                     <button onClick={addPost}>Add post</button>
@@ -45,7 +53,6 @@ export const MyPosts = (props: MyPostsPropsType) => {
                 </div>
             </div>
             <div className={s.posts}>
-                {/*<Post message={"One message"}/>*/}
                 {postsElements}
             </div>
         </div>

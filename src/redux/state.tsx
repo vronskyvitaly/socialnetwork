@@ -2,76 +2,73 @@ import {renderEntireTree} from "render";
 
 
 export type PostsDataType = {
-    id:number
-    message:string
+    id: number
+    message: string
 }
 
-/*const posts:PostsDataType[] = [
-    {id:1 , message:"One message"},
-    {id:2 , message:"Two message"},
-]*/
 
 export type DialogsDataType = {
-    id:number
-    name:string
+    id: number
+    name: string
 }
 
-/*const dialogsData:DialogsDataType[] = [
-    {id:1 , name:"Виталий"},
-    {id:2 , name:"Влад"},
-    {id:3 , name:"Саша"},
-    {id:4 , name:"Артем"},
-]*/
 
 export type MessagesDataType = {
-    id:number
-    message:string
+    id: number
+    message: string
 }
-
-/*const messagesData:MessagesDataType[] = [
-    {id:1 , message:"Привет как дела?"},
-    {id:2 , message:"Что делаешь"},
-    {id:3 , message:"Завтра встретимся?"},
-]*/
-
 
 
 export type StateType = {
     profilePage: {
-        posts :PostsDataType[]
+        posts: PostsDataType[]
+        newPostsText: string
+
     }
-    dialogsPage:{
+    dialogsPage: {
         dialogs: DialogsDataType[]
         messages: MessagesDataType[]
     }
 
 }
 
-export const state:StateType = {
+export const state: StateType = {
 
     profilePage: {
         posts: [
-            {id:1 , message:"One message"},
-            {id:2 , message:"Two message"},
+            {id: 1, message: "One message"},
+            {id: 2, message: "Two message"},
         ],
+        newPostsText: ""
     },
     dialogsPage: {
         dialogs: [
-            {id:1 , name:"Виталий"},
-            {id:2 , name:"Влад"},
-            {id:3 , name:"Саша"},
-            {id:4 , name:"Артем"},
+            {id: 1, name: "Виталий"},
+            {id: 2, name: "Влад"},
+            {id: 3, name: "Саша"},
+            {id: 4, name: "Артем"},
         ],
         messages: [
-            {id:1 , message:"Привет как дела?"},
-            {id:2 , message:"Что делаешь"},
-            {id:3 , message:"Завтра встретимся?"},
+            {id: 1, message: "Привет как дела?"},
+            {id: 2, message: "Что делаешь"},
+            {id: 3, message: "Завтра встретимся?"},
         ]
     }
 }
 
-export const addPost = (postMessage:string ) => {
-    let newPost = {id:new Date().getTime() , message:postMessage};
+export const addPost = () => {
+    let newPost = {id: new Date().getTime(), message: state.profilePage.newPostsText};
     state.profilePage.posts.push(newPost)
+    // первый способ очистить input после добавления
+    updateNewPostText("")
+    /*
+    // второй способ очистить input после добавления
+    state.profilePage.newPostsText = ""
+    */
+    renderEntireTree(state)
+}
+
+export const updateNewPostText = (newText: string) => {
+    state.profilePage.newPostsText = newText
     renderEntireTree(state)
 }
