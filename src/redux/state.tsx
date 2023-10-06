@@ -1,4 +1,5 @@
-import {renderEntireTree} from "render";
+let renderEntireTree = () => {
+}
 
 
 export type PostsDataType = {
@@ -65,10 +66,15 @@ export const addPost = () => {
     // второй способ очистить input после добавления
     state.profilePage.newPostsText = ""
     */
-    renderEntireTree(state)
+    renderEntireTree()
 }
 
 export const updateNewPostText = (newText: string) => {
     state.profilePage.newPostsText = newText
-    renderEntireTree(state)
+    renderEntireTree()
+}
+
+
+export const subscribe = (observer:()=>void) => {
+   renderEntireTree = observer
 }
