@@ -29,13 +29,42 @@ export type StateType = {
 
 }
 
+
+
+
+
+
+export type ActionTypes = addPostACActionType | updateNewPostTextACActionType
+
+
+export type addPostACActionType = ReturnType<typeof addPostAC>
+export const addPostAC = ()=> {
+    return {
+        type: 'ADD-POST',
+    } as const
+}
+
+export type updateNewPostTextACActionType = ReturnType<typeof updateNewPostTextAC>
+export const updateNewPostTextAC = (newText:string)=> {
+    return {
+        type: "UPDATE-NEW-POST-TEXT",
+        payload: {
+            newText
+        }
+    } as const
+}
+
+
+
+
 export type StoreType = {
     _state: StateType,
-    getState:()=> StateType
     _callSubscriber: (state:StateType) => void,
-    addPost: () => void,
-    updateNewPostText: (newText: string) => void,
+
+    getState:()=> StateType
     subscribe: (observer: () => void) => void
+
+    dispatch: (action:ActionTypes) => void
 }
 
 
@@ -64,26 +93,31 @@ export const store:StoreType = {
         ]
     }
 },
+    _callSubscriber(state:StateType){},
+
     getState (){
         return this._state
     },
-    _callSubscriber(state:StateType){},
-    addPost ()  {
-        let newPost = {id: new Date().getTime(), message: this._state.profilePage.newPostsText};
-        this._state.profilePage.posts.push(newPost)
-        // первый способ очистить input после добавления
-        this.updateNewPostText("")
-        /*
-        // второй способ очистить input после добавления
-        state.profilePage.newPostsText = ""
-        */
-        this._callSubscriber(this._state)
-    },
-    updateNewPostText (newText: string) {
-        this._state.profilePage.newPostsText = newText
-        this._callSubscriber(this._state)
-    },
-    subscribe (observer:()=>void) {
+    subscribe (observer:() => void) {
         this._callSubscriber = observer
+    },
+
+
+    dispatch (action)  {
+       if (action.type === "ADD-POST"){
+           let newPost = {id: new Date().getTime(), message: this._state.profilePage.newPostsText};
+           this._state.profilePage.posts.push(newPost)
+           // первый способ очистить input после добавления
+           this._state.profilePage.newPostsText = ""
+           /*
+           // второй способ очистить input после добавления
+           state.profilePage.newPostsText = ""
+           */
+           this._callSubscriber(this._state)
+       } else if (action.type === "UPDATE-NEW-POST-TEXT") {
+           this._state.profilePage.newPostsText = action.payload.newText
+           this._callSubscriber(this._state)
+       }
     }
+
 }

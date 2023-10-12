@@ -1,16 +1,18 @@
 import React, {RefObject} from 'react';
 import {Post} from "components/Profile/MyPosts/Post/Post";
 import s from "./MyPosts.module.css"
-import {PostsDataType} from "redux/state";
+import {ActionTypes, PostsDataType, updateNewPostTextAC} from "redux/state";
+
+
 
 
 type MyPostsPropsType = {
     posts: PostsDataType[]
-    addPost: () => void
     newPostsText: string
-    updateNewPostText: (newPost: string) => void
+    dispatch :(action:ActionTypes)=>void
 
 }
+
 
 export const MyPosts = (props: MyPostsPropsType) => {
 
@@ -23,17 +25,22 @@ export const MyPosts = (props: MyPostsPropsType) => {
         if (newPostElement.current) {
             let text = newPostElement.current.value;
             if (text.trim() !== "") {
-                props.addPost();
+                // первый способ
+                let action:ActionTypes = {type: "ADD-POST"};
+                props.dispatch(action)
             }
+
         }
     };
 
     const onPostChangeHandler = () => {
         if (newPostElement.current) {
             let text = newPostElement.current.value;
-            props.updateNewPostText(text)
+            props.dispatch(updateNewPostTextAC(text))
         }
     }
+
+
 
     return (
         <div className={s.my_Posts_wrapper}>
