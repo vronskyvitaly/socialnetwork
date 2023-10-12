@@ -12,6 +12,7 @@ const renderEntireTree = (state:StateType) => {
         <BrowserRouter>
             <App state = {store.getState()}
                  dispatch ={store.dispatch.bind(store)}
+                 store = {store}
             />
         </BrowserRouter>, document.getElementById('root')
     );

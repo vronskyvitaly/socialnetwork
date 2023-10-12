@@ -25,6 +25,7 @@ export type StateType = {
     dialogsPage: {
         dialogs: DialogsDataType[]
         messages: MessagesDataType[]
+        newMassageBody: string
     }
 
 }
@@ -34,7 +35,11 @@ export type StateType = {
 
 
 
-export type ActionTypes = addPostACActionType | updateNewPostTextACActionType
+export type ActionTypes =
+    addPostACActionType
+    | updateNewPostTextACActionType
+    | updateNewMassageBodyACActionType
+    | sendMassageACActionType
 
 
 export type addPostACActionType = ReturnType<typeof addPostAC>
@@ -54,6 +59,22 @@ export const updateNewPostTextAC = (newText:string)=> {
     } as const
 }
 
+
+export type updateNewMassageBodyACActionType = ReturnType<typeof updateNewMassageBodyAC>
+export const updateNewMassageBodyAC = (newMassageBody:string)=> {
+    return {
+        type: "UPDATE-NEW-MASSAGE-BODY",
+        newMassageBody
+    } as const
+}
+
+
+export type sendMassageACActionType = ReturnType<typeof sendMassageAC>
+export const sendMassageAC = ()=> {
+    return {
+        type: "SEND-MESSAGE",
+    } as const
+}
 
 
 
@@ -90,7 +111,8 @@ export const store:StoreType = {
             {id: 1, message: "Привет как дела?"},
             {id: 2, message: "Что делаешь"},
             {id: 3, message: "Завтра встретимся?"},
-        ]
+        ],
+        newMassageBody: ""
     }
 },
     _callSubscriber(state:StateType){},
@@ -116,6 +138,14 @@ export const store:StoreType = {
            this._callSubscriber(this._state)
        } else if (action.type === "UPDATE-NEW-POST-TEXT") {
            this._state.profilePage.newPostsText = action.payload.newText
+           this._callSubscriber(this._state)
+       } else if (action.type === "UPDATE-NEW-MASSAGE-BODY"){
+           this._state.dialogsPage.newMassageBody = action.newMassageBody
+           this._callSubscriber(this._state)
+       } else if (action.type === "SEND-MESSAGE"){
+           let body = this._state.dialogsPage.newMassageBody;
+           this._state.dialogsPage.newMassageBody = ""
+           this._state.dialogsPage.messages.push({id: 6, message: body})
            this._callSubscriber(this._state)
        }
     }
