@@ -1,13 +1,29 @@
-import {ActionTypes, DialogsDataType, MessagesDataType, StateType} from "redux/state";
+import {ActionTypes, DialogsDataType, MessagesDataType, StateType} from "redux/store";
 
 
-type StateDialogs = {
+export type StateDialogs = {
     dialogs: DialogsDataType[]
     messages: MessagesDataType[]
     newMassageBody: string
 }
 
-export const dialogsReducer = (state: StateDialogs, action: ActionTypes) => {
+
+let initialState:StateDialogs = {
+    dialogs: [
+        {id: 1, name: "Виталий"},
+        {id: 2, name: "Влад"},
+        {id: 3, name: "Саша"},
+        {id: 4, name: "Артем"},
+    ],
+    messages: [
+        {id: 1, message: "Привет как дела?"},
+        {id: 2, message: "Что делаешь"},
+        {id: 3, message: "Завтра встретимся?"},
+    ],
+    newMassageBody: ""
+}
+
+export const dialogsReducer = (state = initialState, action: ActionTypes) => {
 
     switch (action.type) {
         case "UPDATE-NEW-MASSAGE-BODY":

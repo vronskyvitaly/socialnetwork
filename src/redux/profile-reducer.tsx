@@ -1,12 +1,21 @@
-import {ActionTypes, PostsDataType} from "redux/state";
+import {ActionTypes, PostsDataType} from "redux/store";
 
 
-type StateProfile = {
+export type StateProfile = {
     posts: PostsDataType[]
     newPostsText: string
 }
 
-export const profileReducer = (state:StateProfile, action:ActionTypes) => {
+
+let initialState:StateProfile = {
+        posts: [
+            {id: 1, message: "One message"},
+            {id: 2, message: "Two message"},
+        ],
+        newPostsText: ""
+    }
+
+export const profileReducer = (state = initialState, action:ActionTypes) => {
 
     switch (action.type) {
         case "ADD-POST":
