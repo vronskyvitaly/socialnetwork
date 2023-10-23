@@ -1,12 +1,8 @@
 import { createStore, combineReducers } from 'redux';
-import { StateProfile, profileReducer } from './profile-reducer';
-import { StateDialogs, dialogsReducer } from './dialogs-reducer';
+import {  profileReducer } from './profile-reducer';
+import { dialogsReducer } from './dialogs-reducer';
 
 
-export type StateType = {
-    profilePage: StateProfile;
-    dialogsPage: StateDialogs;
-};
 
 const reducers = combineReducers({
     profilePage: profileReducer,
@@ -15,6 +11,13 @@ const reducers = combineReducers({
 
 export const store = createStore(reducers);
 
-export type StoreType = ReturnType<typeof createStore>;
+
+/*
+// до исправления
+export type StoreType = typeof store;
+*/
+
+export type RootStateType = ReturnType<typeof reducers>
+
 // @ts-ignore
 window.store = store

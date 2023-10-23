@@ -1,13 +1,13 @@
 import {ActionTypes, PostsDataType} from "redux/store";
 
 
-export type StateProfile = {
+export type StateProfilePageType = {
     posts: PostsDataType[]
     newPostsText: string
 }
 
 
-let initialState:StateProfile = {
+let initialState:StateProfilePageType  = {
         posts: [
             {id: 1, message: "One message"},
             {id: 2, message: "Two message"},
@@ -19,11 +19,18 @@ export const profileReducer = (state = initialState, action:ActionTypes) => {
 
     switch (action.type) {
         case "ADD-POST":
-            let newPost = {"id": new Date().getTime(), "message": state.newPostsText};
+            /*let newPost = {"id": new Date().getTime(), "message": state.newPostsText};
             state.posts.push(newPost)
             // первый способ очистить input после добавления
             state.newPostsText = ""
-            return state
+            return state*/
+
+            let newPost = {id: new Date().getTime(), message: action.newPostText};
+            return {...state,
+                posts: [...state.posts, newPost],
+            }
+
+
         case "UPDATE-NEW-POST-TEXT":
             state.newPostsText = action.payload.newText
             return state
@@ -34,9 +41,10 @@ export const profileReducer = (state = initialState, action:ActionTypes) => {
 
 
 export type addPostACActionType = ReturnType<typeof addPostAC>
-export const addPostAC = ()=> {
+export const addPostAC = (newPostText:string)=> {
     return {
         type: 'ADD-POST',
+        newPostText
     } as const
 }
 

@@ -1,14 +1,14 @@
 import {ActionTypes, DialogsDataType, MessagesDataType, StateType} from "redux/store";
 
 
-export type StateDialogs = {
+export type StateDialogsPageType = {
     dialogs: DialogsDataType[]
     messages: MessagesDataType[]
     newMassageBody: string
 }
 
 
-let initialState:StateDialogs = {
+let initialState:StateDialogsPageType = {
     dialogs: [
         {id: 1, name: "Виталий"},
         {id: 2, name: "Влад"},
@@ -30,10 +30,10 @@ export const dialogsReducer = (state = initialState, action: ActionTypes) => {
             state.newMassageBody = action.newMassageBody
             return state
         case "SEND-MESSAGE":
-            let body = state.newMassageBody;
-            state.newMassageBody = ""
-            state.messages.push({id: 6, message: body})
-            return state
+            let message = {id: new Date().getTime(), message: action.body}
+            return {...state,
+                messages: [...state.messages, message]
+            }
         default: return state
     }
 };
@@ -50,8 +50,9 @@ export const updateNewMassageBodyAC = (newMassageBody:string)=> {
 
 
 export type sendMassageACActionType = ReturnType<typeof sendMassageAC>
-export const sendMassageAC = ()=> {
+export const sendMassageAC = (body:string)=> {
     return {
         type: "SEND-MESSAGE",
+        body
     } as const
 }

@@ -1,38 +1,34 @@
-import React, {ChangeEvent} from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import s from './Dialogs.module.css'
-import {DialogItem} from "components/Dialogs/DialogItem/DialogItem";
-import {Message} from "components/Dialogs/Message/MessageItem";
-import {StoreType} from "redux/store";
-import {sendMassageAC, updateNewMassageBodyAC} from "redux/dialogs-reducer";
+import { DialogItem } from "components/Dialogs/DialogItem/DialogItem";
+import { Message } from "components/Dialogs/Message/MessageItem";
+import { sendMassageAC, StateDialogsPageType, updateNewMassageBodyAC } from "redux/dialogs-reducer";
+import { useDispatch, useSelector } from "react-redux";
+import { RootStateType } from "redux/redux-store";
 
+export const Dialogs = () => {
+    const [value, setValue] = useState("");
 
-type DialogsPropsType = {
-    store: StoreType
-}
+    const storeDialogs = useSelector<RootStateType, StateDialogsPageType>(state => state.dialogsPage);
+    const dispatch = useDispatch();
 
-export const Dialogs = (props: DialogsPropsType) => {
-
-    let state = props.store.getState().dialogsPage
-
-
-    const dialogsElement = state.dialogs.map(d =>
-        <DialogItem name={d.name} id={d.id}/>)
-    const messagesElement = state.messages.map(m =>
-        <Message message={m.message}/>)
-    let newMassageBody = props.store.getState().dialogsPage.newMassageBody
+    const dialogsElement = storeDialogs.dialogs.map(d =>
+        <DialogItem name={d.name} id={d.id} />
+    );
+    const messagesElement = storeDialogs.messages.map(m =>
+        <Message message={m.message} />
+    );
 
     const onSendMassageClick = () => {
-        if (newMassageBody.trim() !== '') {
-            props.store.dispatch(sendMassageAC())
+        if (value.trim() !== '') {
+            dispatch(sendMassageAC(value));
+            setValue(""); // Сбросить значение после отправки сообщения
         }
-    }
+    };
 
     const onNewMassageChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        let body = event.currentTarget.value
-        props.store.dispatch(updateNewMassageBodyAC(body))
-
-    }
-
+        setValue(event.currentTarget.value);
+    };
 
     return (
         <div className={s.dialogsPages_wrapper}>
@@ -42,15 +38,18 @@ export const Dialogs = (props: DialogsPropsType) => {
             <div className={s.messages}>
                 <div>{messagesElement}</div>
                 <div>
-                    <div><textarea value={newMassageBody} onChange={onNewMassageChange}
-                                   placeholder={"Enter your massage"}></textarea></div>
+                    <div>
+            <textarea
+                value={value}
+                onChange={onNewMassageChange}
+                placeholder="Enter your massage"
+            ></textarea>
+                    </div>
                     <div>
                         <button onClick={onSendMassageClick}>Добавить</button>
                     </div>
                 </div>
-
             </div>
         </div>
     );
 };
-

@@ -1,46 +1,38 @@
-import React, {RefObject} from 'react';
-import {Post} from "components/Profile/MyPosts/Post/Post";
-import s from "./MyPosts.module.css"
-import {ActionTypes, PostsDataType, } from "redux/store";
-import {updateNewPostTextAC} from "redux/profile-reducer";
+import React, { ChangeEvent, RefObject, useState } from "react";
+import { Post } from "components/Profile/MyPosts/Post/Post";
+import s from "./MyPosts.module.css";
+import {
+    addPostAC,
+    StateProfilePageType,
+} from "redux/profile-reducer";
 
+import { useDispatch, useSelector } from "react-redux";
+import { RootStateType } from "redux/redux-store";
 
+export const MyPosts = () => {
+    const storeMyPosts = useSelector<RootStateType, StateProfilePageType>(
+        (state) => state.profilePage
+    );
+    const dispatch = useDispatch();
 
+    const [value, setValue] = useState("");
 
-type MyPostsPropsType = {
-    posts: PostsDataType[]
-    newPostsText: string
-    dispatch :(action:ActionTypes)=>void
-
-}
-
-
-export const MyPosts = (props: MyPostsPropsType) => {
-
-
-    const postsElements = props.posts.map(p => <Post message={p.message}/>)
-
-    let newPostElement: RefObject<HTMLTextAreaElement> = React.createRef()
 
     const addPost = () => {
-        if (newPostElement.current) {
-            let text = newPostElement.current.value;
-            if (text.trim() !== "") {
-                // первый способ
-                let action:ActionTypes = {type: "ADD-POST"};
-                props.dispatch(action)
-            }
-
+        if (value.trim() !== "") {
+            dispatch(addPostAC(value));
+            setValue("")
         }
     };
 
-    const onPostChangeHandler = () => {
-        if (newPostElement.current) {
-            let text = newPostElement.current.value;
-            props.dispatch(updateNewPostTextAC(text))
-        }
-    }
+    const onChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
+        setValue(event.currentTarget.value);
+    };
 
+
+    const renderPostsElements = storeMyPosts.posts.map((p) => (
+        <Post message={p.message} />
+    ));
 
 
     return (
@@ -48,22 +40,14 @@ export const MyPosts = (props: MyPostsPropsType) => {
             <div>
                 <h3>My posts</h3>
                 <div>
-                    <textarea onChange={onPostChangeHandler}
-                              ref={newPostElement}
-                              value={props.newPostsText}
-                    ></textarea>
+                    <textarea onChange={onChangeHandler} value={value}></textarea>
                 </div>
                 <div>
                     <button onClick={addPost}>Add post</button>
                 </div>
-                <div>
-                    New posts
-                </div>
+                <div>New posts</div>
             </div>
-            <div className={s.posts}>
-                {postsElements}
-            </div>
+            <div className={s.posts}>{renderPostsElements}</div>
         </div>
-    )
-
+    );
 };

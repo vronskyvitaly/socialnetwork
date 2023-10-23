@@ -6,22 +6,17 @@ import {ActionTypes, PostsDataType} from "redux/store";
 
 
 type ProfilePropsType = {
-    posts: PostsDataType[]
+    /*posts: PostsDataType[]
     newPostsText: string
-    dispatch :(action:ActionTypes)=>void
-
+    dispatch :(action:ActionTypes)=>void*/
 }
 
-export const Profile = (props: ProfilePropsType) => {
+export const Profile = () => {
 
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts posts={props.posts}
-                     newPostsText ={props.newPostsText}
-                     dispatch = {props.dispatch}
-
-            />
+            <MyPosts/>
         </div>
     );
 };
