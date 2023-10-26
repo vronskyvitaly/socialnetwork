@@ -1,4 +1,4 @@
-import {ActionTypes, PostsDataType} from "redux/store";
+import { PostsDataType} from "redux/store";
 
 
 export type StateProfilePageType = {
@@ -15,32 +15,40 @@ let initialState:StateProfilePageType  = {
         newPostsText: ""
     }
 
-export const profileReducer = (state = initialState, action:ActionTypes) => {
+
+type ActionTypes  = addPostACType | updateNewPostTextACType
+
+
+
+export const profileReducer = (state = initialState, action:ActionTypes):StateProfilePageType => {
 
     switch (action.type) {
         case "ADD-POST":
-            /*let newPost = {"id": new Date().getTime(), "message": state.newPostsText};
+            /*
+            let newPost = {"id": new Date().getTime(), "message": state.newPostsText};
             state.posts.push(newPost)
             // первый способ очистить input после добавления
             state.newPostsText = ""
-            return state*/
+            return state
+            */
 
             let newPost = {id: new Date().getTime(), message: action.newPostText};
             return {...state,
                 posts: [...state.posts, newPost],
             }
 
-
         case "UPDATE-NEW-POST-TEXT":
-            state.newPostsText = action.payload.newText
-            return state
+            return {
+                ...state,
+                newPostsText: action.payload.newText
+            }
         default: return state
     }
 
 };
 
 
-export type addPostACActionType = ReturnType<typeof addPostAC>
+export type addPostACType = ReturnType<typeof addPostAC>
 export const addPostAC = (newPostText:string)=> {
     return {
         type: 'ADD-POST',
@@ -49,7 +57,7 @@ export const addPostAC = (newPostText:string)=> {
 }
 
 
-export type updateNewPostTextACActionType = ReturnType<typeof updateNewPostTextAC>
+export type updateNewPostTextACType = ReturnType<typeof updateNewPostTextAC>
 export const updateNewPostTextAC = (newText:string)=> {
     return {
         type: "UPDATE-NEW-POST-TEXT",

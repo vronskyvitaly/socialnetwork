@@ -1,5 +1,4 @@
-import {addPostACActionType, profileReducer, updateNewPostTextACActionType} from "redux/profile-reducer";
-import {dialogsReducer, sendMassageACActionType, updateNewMassageBodyACActionType} from "redux/dialogs-reducer";
+
 
 export type PostsDataType = {
     id: number
@@ -31,16 +30,13 @@ export type StateType = {
 
 
 
-export type ActionTypes =
-    addPostACActionType
-    | updateNewPostTextACActionType
-    | updateNewMassageBodyACActionType
-    | sendMassageACActionType
 
 
 
 
 
+
+/*
 export type StoreType = {
     _state: StateType,
     _callSubscriber: (state:StateType) => void,
@@ -50,10 +46,10 @@ export type StoreType = {
 
     dispatch: (action:ActionTypes) => void
 }
+*/
 
 
-
-
+/*
 export const store:StoreType = {
     _state: {
     profilePage: {
@@ -96,3 +92,4 @@ export const store:StoreType = {
     }
 
 }
+*/

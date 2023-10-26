@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState } from 'react';
 import s from './Dialogs.module.css'
 import { DialogItem } from "components/Dialogs/DialogItem/DialogItem";
 import { Message } from "components/Dialogs/Message/MessageItem";
-import { sendMassageAC, StateDialogsPageType, updateNewMassageBodyAC } from "redux/dialogs-reducer";
+import { sendMassageAC, StateDialogsPageType} from "redux/dialogs-reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { RootStateType } from "redux/redux-store";
 
@@ -11,6 +11,7 @@ export const Dialogs = () => {
 
     const storeDialogs = useSelector<RootStateType, StateDialogsPageType>(state => state.dialogsPage);
     const dispatch = useDispatch();
+
 
     const dialogsElement = storeDialogs.dialogs.map(d =>
         <DialogItem name={d.name} id={d.id} />

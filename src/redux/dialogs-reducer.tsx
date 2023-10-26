@@ -1,4 +1,5 @@
-import {ActionTypes, DialogsDataType, MessagesDataType, StateType} from "redux/store";
+import { DialogsDataType, MessagesDataType} from "redux/store";
+
 
 
 export type StateDialogsPageType = {
@@ -23,12 +24,17 @@ let initialState:StateDialogsPageType = {
     newMassageBody: ""
 }
 
+
+type ActionTypes  = updateNewMassageBodyACType | sendMassageACType
+
 export const dialogsReducer = (state = initialState, action: ActionTypes) => {
 
     switch (action.type) {
         case "UPDATE-NEW-MASSAGE-BODY":
-            state.newMassageBody = action.newMassageBody
-            return state
+            return {
+                ...state,
+                newMassageBody: action.newMassageBody
+            }
         case "SEND-MESSAGE":
             let message = {id: new Date().getTime(), message: action.body}
             return {...state,
@@ -40,7 +46,7 @@ export const dialogsReducer = (state = initialState, action: ActionTypes) => {
 
 
 
-export type updateNewMassageBodyACActionType = ReturnType<typeof updateNewMassageBodyAC>
+export type updateNewMassageBodyACType = ReturnType<typeof updateNewMassageBodyAC>
 export const updateNewMassageBodyAC = (newMassageBody:string)=> {
     return {
         type: "UPDATE-NEW-MASSAGE-BODY",
@@ -49,7 +55,7 @@ export const updateNewMassageBodyAC = (newMassageBody:string)=> {
 }
 
 
-export type sendMassageACActionType = ReturnType<typeof sendMassageAC>
+export type sendMassageACType = ReturnType<typeof sendMassageAC>
 export const sendMassageAC = (body:string)=> {
     return {
         type: "SEND-MESSAGE",

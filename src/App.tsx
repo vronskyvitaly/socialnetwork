@@ -5,14 +5,15 @@ import { Navbar } from "components/Navbar/Navbar";
 import { Profile } from "components/Profile/Profile";
 import { Dialogs } from "components/Dialogs/Dialogs";
 import { Redirect, Route } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 
+
+/*
 type AppPropsType = {
-
-    /*state:StateType
+    state:StateType
     dispatch:(action:ActionTypes)=>void
-    store:StoreType*/
+    store:StoreType
 }
+*/
 
 function App() {
     return (
