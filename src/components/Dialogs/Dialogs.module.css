@@ -1,14 +1,55 @@
 .dialogsPages_wrapper{
     display: grid;
+    height: 90vh;
     grid-template-columns: 2fr 8fr;
     margin: 20px;
 }
 
 
-.dialog {
+.dialog_link {
     margin-top: 10px;
 }
 
-.message {
+.messages_wrapper {
     padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.message{
+    padding: 5px 0;
+}
+
+
+
+/*стили для ссылок в Navbar*/
+.dialog_link a {
+    font-size: 20px;
+    color: #212121;
+    border-style: none;
+}
+
+/*при наведении на ссылку*/
+.dialog_link a:hover{
+    font-weight: bolder;
+    color: #0a0a0a;
+}
+
+/*компонента NavLink добавляет класс active*/
+.dialog_link a.active{
+    font-weight: bold;
+    color: #0d0dc4;
+}
+
+
+.textarea_wrapper{
+    display: flex;
+    gap: 10px;
+    padding-bottom: 40px;
+}
+.textarea{
+    padding: 10px;
+    resize: none;
+    width: 100%;
 }

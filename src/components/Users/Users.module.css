@@ -1,0 +1,57 @@
+.usersContainer_wrapper{
+    /*background-color: #605f5f;*/
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 20px;
+    height: 100%;
+}
+
+.user_wrapper{
+    display: flex;
+    width: 100%;
+    gap: 20px;
+    background-color: #cbc5c5;
+    padding: 20px 20px;
+    border: 1px solid #0a0a0a;
+    border-radius: 10px;
+}
+
+.blockOne{
+    display: flex;
+    flex-direction: column;
+}
+
+.blockOne button{
+    margin-top: 10px;
+}
+
+
+.blockTwo{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.location_wrapper{
+    display: flex;
+    gap: 5px;
+}
+
+.location{
+    font-size: 10px;
+}
+
+.status{
+    font-size: 10px;
+}
+
+
+
+
+.img{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #605f5f;
+}

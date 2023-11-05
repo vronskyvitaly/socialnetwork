@@ -1,9 +1,42 @@
 
-.img_style{
+.wall{
+}
+
+
+.wall_img{
     height: 200px;
     width: 100%;
 }
 
 .description {
+    display: flex;
+    position: relative;
     padding: 10px;
+}
+
+
+.ava{
+    position: absolute;
+    left: 15px;
+    top: -51px;
+    width: 100px;
+    height: 100px;
+    background-color: #605f5f;
+    border-radius: 50%;
+}
+
+.body_wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-left: 110px;
+}
+
+
+.user_name{
+
+}
+
+.user_status{
+    font-size: 10px;
 }

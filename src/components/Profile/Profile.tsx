@@ -1,6 +1,6 @@
 import React from 'react';
-import {MyPosts} from "components/Profile/MyPosts/MyPosts";
 import {ProfileInfo} from "components/Profile/ProfileInfo/ProfileInfo";
+import MyPostContainer from "components/Profile/MyPosts/MyPostContainer";
 
 /*
 type ProfilePropsType = {
@@ -14,7 +14,7 @@ export const Profile = () => {
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts/>
+            <MyPostContainer/>
         </div>
     );
 };

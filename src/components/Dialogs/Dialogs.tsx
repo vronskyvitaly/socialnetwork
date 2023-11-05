@@ -1,34 +1,36 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, {ChangeEvent, FC} from 'react';
 import s from './Dialogs.module.css'
-import { DialogItem } from "components/Dialogs/DialogItem/DialogItem";
-import { Message } from "components/Dialogs/Message/MessageItem";
-import { sendMassageAC, StateDialogsPageType} from "redux/dialogs-reducer";
-import { useDispatch, useSelector } from "react-redux";
-import { RootStateType } from "redux/redux-store";
-
-export const Dialogs = () => {
-    const [value, setValue] = useState("");
-
-    const storeDialogs = useSelector<RootStateType, StateDialogsPageType>(state => state.dialogsPage);
-    const dispatch = useDispatch();
+import {DialogItem} from "components/Dialogs/DialogItem/DialogItem";
+import {Message} from "components/Dialogs/Message/MessageItem";
+import {DialogsDataType, MessagesDataType} from "redux/store";
 
 
-    const dialogsElement = storeDialogs.dialogs.map(d =>
-        <DialogItem name={d.name} id={d.id} />
+type DialogsPropsType = {
+    valueInput: string
+    dialogs: DialogsDataType[]
+    messages: MessagesDataType[]
+    sendMassage: ( value: string ) => void
+    updateNewMassage: ( value: string ) => void
+}
+
+
+export const Dialogs: FC<DialogsPropsType> = ( props ) => {
+
+    const dialogsElement = props.dialogs.map ( d =>
+        <DialogItem name={d.name} id={d.id}/>
     );
-    const messagesElement = storeDialogs.messages.map(m =>
-        <Message message={m.message} />
+    const messagesElement = props.messages.map ( m =>
+        <Message message={m.message}/>
     );
 
     const onSendMassageClick = () => {
-        if (value.trim() !== '') {
-            dispatch(sendMassageAC(value));
-            setValue(""); // Сбросить значение после отправки сообщения
+        if (props.valueInput.trim () !== '') {
+            props.sendMassage ( props.valueInput );
         }
     };
 
-    const onNewMassageChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        setValue(event.currentTarget.value);
+    const onNewMassageChange = ( event: ChangeEvent<HTMLTextAreaElement> ) => {
+        props.updateNewMassage ( event.currentTarget.value )
     };
 
     return (
@@ -36,21 +38,22 @@ export const Dialogs = () => {
             <div className={s.dialogs}>
                 {dialogsElement}
             </div>
-            <div className={s.messages}>
-                <div>{messagesElement}</div>
-                <div>
-                    <div>
-            <textarea
-                value={value}
-                onChange={onNewMassageChange}
-                placeholder="Enter your massage"
-            ></textarea>
-                    </div>
-                    <div>
-                        <button onClick={onSendMassageClick}>Добавить</button>
-                    </div>
+            <div className={s.messages_wrapper}>
+                <div >
+                    {messagesElement}
+                </div >
+                <div className={s.textarea_wrapper}>
+                    <textarea
+                        className={s.textarea}
+                        value={props.valueInput}
+                        onChange={onNewMassageChange}
+                        placeholder="Enter your massage">
+                   </textarea>
+                    <button onClick={onSendMassageClick}>Добавить</button>
                 </div>
+
             </div>
         </div>
+
     );
 };

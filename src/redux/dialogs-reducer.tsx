@@ -33,12 +33,13 @@ export const dialogsReducer = (state = initialState, action: ActionTypes) => {
         case "UPDATE-NEW-MASSAGE-BODY":
             return {
                 ...state,
-                newMassageBody: action.newMassageBody
+                newMassageBody: action.valueInput
             }
         case "SEND-MESSAGE":
-            let message = {id: new Date().getTime(), message: action.body}
+            let message = {id: new Date().getTime(), message: action.messageBody}
             return {...state,
-                messages: [...state.messages, message]
+                messages: [...state.messages, message],
+                newMassageBody: ""
             }
         default: return state
     }
@@ -47,18 +48,18 @@ export const dialogsReducer = (state = initialState, action: ActionTypes) => {
 
 
 export type updateNewMassageBodyACType = ReturnType<typeof updateNewMassageBodyAC>
-export const updateNewMassageBodyAC = (newMassageBody:string)=> {
+export const updateNewMassageBodyAC = (valueInput:string)=> {
     return {
         type: "UPDATE-NEW-MASSAGE-BODY",
-        newMassageBody
+        valueInput
     } as const
 }
 
 
 export type sendMassageACType = ReturnType<typeof sendMassageAC>
-export const sendMassageAC = (body:string)=> {
+export const sendMassageAC = (messageBody:string)=> {
     return {
         type: "SEND-MESSAGE",
-        body
+        messageBody
     } as const
 }

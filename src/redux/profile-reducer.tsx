@@ -34,7 +34,8 @@ export const profileReducer = (state = initialState, action:ActionTypes):StatePr
 
             let newPost = {id: new Date().getTime(), message: action.newPostText};
             return {...state,
-                posts: [...state.posts, newPost],
+                posts: [newPost, ...state.posts],
+                newPostsText:""
             }
 
         case "UPDATE-NEW-POST-TEXT":
