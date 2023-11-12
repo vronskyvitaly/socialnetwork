@@ -43,26 +43,20 @@ let initialState: StateUserType = {
 }
 
 
-type ActionTypes = followACType | unfollowACType | setUsersACType
+type ActionTypes = changeFollowACType | setUsersACType
 
 
 export const usersReducer = ( state = initialState, action: ActionTypes ): StateUserType => {
 
     switch (action.type) {
-        case "FOLLOW":
+        case "CHANGE-FOLLOW":
             return {
                 ...state,
                 users: state.users.map ( user => user.id === action.payload.userID
-                    ? {...user, followed: false}
+                    ? {...user, followed: action.payload.follow}
                     : user )
             }
-        case "UNFOLLOW":
-            return {
-                ...state,
-                users: state.users.map ( user => user.id === action.payload.userID
-                    ? {...user, followed: true}
-                    : user )
-            }
+
         case "SET-USERS":
             return {
                 ...state,
@@ -75,27 +69,19 @@ export const usersReducer = ( state = initialState, action: ActionTypes ): State
 };
 
 
-export type followACType = ReturnType<typeof followAC>
-export const followAC = ( userID: number ) => {
+export type changeFollowACType = ReturnType<typeof changeFollowAC>
+export const changeFollowAC = ( userID: number, follow:boolean ) => {
     return {
-        type: 'FOLLOW',
+        type: 'CHANGE-FOLLOW',
         payload: {
-            userID
+            userID,
+            follow
         }
 
     } as const
 }
 
 
-export type unfollowACType = ReturnType<typeof unfollowAC>
-export const unfollowAC = ( userID: number ) => {
-    return {
-        type: "UNFOLLOW",
-        payload: {
-            userID
-        }
-    } as const
-}
 
 
 export type setUsersACType = ReturnType<typeof setUsersAC>

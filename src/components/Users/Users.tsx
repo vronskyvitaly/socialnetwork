@@ -5,8 +5,7 @@ import s from "./Users.module.css"
 
 type UsersPropsType = {
     users: UserType[]
-    follow:(userID:number) =>void
-    unfollow:(userID:number) => void
+    changeFollow:(userID:number, follow: boolean) =>void
     setUsers:(users:UserType[])=>void
 }
 
@@ -19,8 +18,8 @@ export const Users:FC<UsersPropsType> = (props) => {
                         <div className={s.blockOne}>
                             <img className={s.img}/>
                             {u.followed
-                                ? <button onClick={()=>props.follow(u.id)}>follow</button>
-                                : <button onClick={()=>(props.unfollow(u.id))}>unfollow</button>
+                                ? <button onClick={()=>props.changeFollow(u.id, !u.followed)}>follow</button>
+                                : <button onClick={()=>(props.changeFollow(u.id, !u.followed))}>unfollow</button>
                             }
 
                         </div>
