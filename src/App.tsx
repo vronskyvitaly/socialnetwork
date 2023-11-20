@@ -2,10 +2,12 @@ import React from 'react';
 import './App.css';
 import { Header } from "components/Header/Header";
 import { Navbar } from "components/Navbar/Navbar";
-import { Profile } from "components/Profile/Profile";
+
 import { Redirect, Route } from "react-router-dom";
 import UsersContainer from "components/Users/UsersContainer";
 import DialogsContainer from "components/Dialogs/DialogsContainer";
+import ProfileContainer from "components/Profile/ProfileContainer";
+
 
 
 /*
@@ -23,7 +25,7 @@ function App() {
             <Navbar />
             <div className={"app-wrapper-content"}>
                 <Route exact path="/" render={() => <Redirect to= "/profile" />} />
-                <Route path="/profile" component={Profile} />
+                <Route path="/profile" render={() => <ProfileContainer />} />
                 <Route path="/users" component={()=> <UsersContainer/>} />
                 <Route path="/dialogs" component={()=> <DialogsContainer/>} />
             </div>

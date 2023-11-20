@@ -7,6 +7,10 @@ type locationType = {
 export type UserType = {
     id: number,
     followed: boolean,
+    photos: {
+        small: null | string,
+        large: null | string
+    },
     name: string,
     status: string
     location: locationType
@@ -18,38 +22,25 @@ type StateUserType = {
     pageSize: number,
     totalUsersCount: number
     currentPage:number
+    isFetching: boolean
 }
 
 
 let initialState: StateUserType = {
-    users: [
-        {
-            id: 1,
-            followed: true,
-            name: "Vitaly",
-            status: "status user",
-            location: {city: "Moscow", country: "Russia"}
-        },
-        {
-            id: 2,
-            followed: false,
-            name: "Dmitry",
-            status: "status user",
-            location: {city: "Minsk", country: "Belarus"}
-        },
-        {   id: 3,
-            followed: true,
-            name: "Vlad",
-            status: "status user",
-            location: {city: "Kiev", country: "Ukraine"}},
-    ],
+    users: [],
     pageSize: 5,
     totalUsersCount: 0,
-    currentPage:1
+    currentPage:1,
+    isFetching:false
 }
 
 
-type ActionTypes = changeFollowACType | setUsersACType | setCurrentPageACType | setUsersTotalCountACType
+type ActionTypes =
+    | changeFollowACType
+    | setUsersACType
+    | setCurrentPageACType
+    | setUsersTotalCountACType
+    | toggleIsFetchingACType
 
 
 export const usersReducer = ( state = initialState, action: ActionTypes ): StateUserType => {
@@ -78,6 +69,8 @@ export const usersReducer = ( state = initialState, action: ActionTypes ): State
                 totalUsersCount
             }
 
+        case "TOGGLE-IS-FETCHING" :
+            return {...state, isFetching:action.payload.isFetching}
 
         case "SET-USERS":
             return {
@@ -129,6 +122,19 @@ export const setUsersTotalCountAC = ( totalUsersCount:number ) => {
     } as const
 }
 
+
+
+
+export type toggleIsFetchingACType = ReturnType<typeof toggleIsFetchingAC>
+export const toggleIsFetchingAC = ( isFetching: boolean ) => {
+    return {
+        type: 'TOGGLE-IS-FETCHING',
+        payload: {
+            isFetching
+        }
+
+    } as const
+}
 
 export type setUsersACType = ReturnType<typeof setUsersAC>
 // todo: после запроса на сервер

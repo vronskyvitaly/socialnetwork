@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {ProfileInfo} from "components/Profile/ProfileInfo/ProfileInfo";
 import MyPostContainer from "components/Profile/MyPosts/MyPostContainer";
+import {ProfileContainerType} from "components/Profile/ProfileContainer";
 
 /*
 type ProfilePropsType = {
@@ -10,10 +11,11 @@ type ProfilePropsType = {
 }
 */
 
-export const Profile = () => {
+export const Profile:FC <ProfileContainerType> = (props) => {
+
     return (
         <div>
-            <ProfileInfo/>
+            <ProfileInfo {...props}/>
             <MyPostContainer/>
         </div>
     );

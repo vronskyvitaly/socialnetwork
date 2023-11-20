@@ -1,19 +1,26 @@
-import React from 'react';
+import React, {FC} from 'react';
 import s from './ProfileInfo.module.css'
-import wallImg from "../../assets/img/wallImg.webp"
+import {ProfileContainerType} from "components/Profile/ProfileContainer";
+import {Preloader} from "components/common/Preloader/Preloader";
+import userPhoto from "../../assets/img/userPhoto.webp"
+import imgTest from "../../assets/img/imTest.jpg"
 
 
-export const ProfileInfo = () => {
+
+export const ProfileInfo:FC<ProfileContainerType> = (props) => {
+    if (!props.profile){
+        return <Preloader/>
+    }
     return (
         <div>
             <div className={s.wall}>
-                <img className={s.wall_img} src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIw-b1SPTd7ouxkj9IqHjcSktmN3sBs5r0mA&usqp=CAU"} alt=""/>
+                <img className={s.wall_img} src={ imgTest} />
             </div>
             <div className={s.description}>
-                <img className={s.ava}/>
+                <img className={s.ava} src={props.profile.photos.large !== null ? props.profile.photos.large: userPhoto }/>
                 <div className={s.body_wrapper}>
-                    <h4 className={s.user_name}>Vitaly Vronsky</h4>
-                    <p className={s.user_status}>Web designer and frontend developer</p>
+                    <h4 className={s.user_name}>{props.profile.fullName}</h4>
+                    <p className={s.user_status}>{props.profile.aboutMe}</p>
                 </div>
             </div>
         </div>

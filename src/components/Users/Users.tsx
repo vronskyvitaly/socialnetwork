@@ -1,6 +1,8 @@
 import React, {FC} from 'react';
 import s from "components/Users/Users.module.css";
 import {UserType} from "redux/users-reducer";
+import userPhoto from "../../components/assets/img/userPhoto.webp"
+import {NavLink} from "react-router-dom";
 
 
 
@@ -32,7 +34,9 @@ const Users:FC<T_Users> = (props) => {
                 return (
                     <div className={s.user_wrapper} key={u.id}>
                         <div className={s.blockOne}>
-                            <img className={s.img} alt={"Profiles photo"}/>
+                            <NavLink to={`/profile/${u.id}`}>
+                                <img src={u.photos.small != null ? u.photos.small: userPhoto} className={s.img}/>
+                            </NavLink>
                             {u.followed ? (
                                 <button onClick={() => props.changeFollow(u.id, false)}>Отписаться</button>
                             ) : (

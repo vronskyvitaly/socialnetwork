@@ -1,9 +1,11 @@
 import { PostsDataType} from "redux/store";
+import {GetProfileType} from "components/Profile/ProfileContainer";
 
 
 export type StateProfilePageType = {
     posts: PostsDataType[]
     newPostsText: string
+    profile: GetProfileType | null
 }
 
 
@@ -12,11 +14,15 @@ let initialState:StateProfilePageType  = {
             {id: 1, message: "One message"},
             {id: 2, message: "Two message"},
         ],
-        newPostsText: ""
+        newPostsText: "",
+        profile : null
     }
 
 
-type ActionTypes  = addPostACType | updateNewPostTextACType
+type ActionTypes  =
+    | addPostACType
+    | updateNewPostTextACType
+    | setUsersProfileACType
 
 
 
@@ -43,6 +49,11 @@ export const profileReducer = (state = initialState, action:ActionTypes):StatePr
                 ...state,
                 newPostsText: action.payload.newText
             }
+
+        case "SET-USERS-PROFILE":
+            return  {
+                ...state, profile:action.payload.profile
+            }
         default: return state
     }
 
@@ -68,5 +79,15 @@ export const updateNewPostTextAC = (newText:string)=> {
     } as const
 }
 
+
+export type setUsersProfileACType = ReturnType<typeof setUsersProfileAC>
+export const setUsersProfileAC = (profile:GetProfileType)=> {
+    return {
+        type: "SET-USERS-PROFILE",
+        payload: {
+            profile
+        }
+    } as const
+}
 
 
