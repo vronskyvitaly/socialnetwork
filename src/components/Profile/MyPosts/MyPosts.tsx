@@ -28,7 +28,7 @@ export const MyPosts:FC<MyPostsPropsType> = (props) => {
 
 
     const renderPostsElements = props.posts.map((p) => (
-        <Post message={p.message} />
+        <Post message={p.message} key = {p.id} />
     ));
 
 

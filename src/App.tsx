@@ -26,7 +26,6 @@ function App() {
                 <Route path="/profile" component={Profile} />
                 <Route path="/users" component={()=> <UsersContainer/>} />
                 <Route path="/dialogs" component={()=> <DialogsContainer/>} />
-                <Route path="/users" component={()=><UsersContainer/>} />
             </div>
         </div>
     )

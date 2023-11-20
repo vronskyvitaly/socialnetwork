@@ -15,9 +15,6 @@ const mapStateToProps = ( state: RootStateType ) => {
 
 const mapDispatchToProps = ( dispatch: StoreDispatch ) => {
     return {
-        // sendMassage: ( value: string ) => {
-        //     dispatch ( sendMassageAC ( value ) )
-        // },
         addPost:(newPostText:string) => {
             dispatch(addPostAC(newPostText))
         },

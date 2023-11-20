@@ -7,6 +7,11 @@
     height: 100%;
 }
 
+.buttons_selectPage_wrapper{
+    display: flex;
+    gap: 5px;
+}
+
 .user_wrapper{
     display: flex;
     width: 100%;
@@ -18,8 +23,10 @@
 }
 
 .blockOne{
+    width: 100px;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .blockOne button{
@@ -45,9 +52,6 @@
 .status{
     font-size: 10px;
 }
-
-
-
 
 .img{
     width: 60px;

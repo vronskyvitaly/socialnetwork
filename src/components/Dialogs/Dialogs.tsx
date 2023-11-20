@@ -17,10 +17,10 @@ type DialogsPropsType = {
 export const Dialogs: FC<DialogsPropsType> = ( props ) => {
 
     const dialogsElement = props.dialogs.map ( d =>
-        <DialogItem name={d.name} id={d.id}/>
+        <DialogItem name={d.name} id={d.id} key = {d.id}/>
     );
     const messagesElement = props.messages.map ( m =>
-        <Message message={m.message}/>
+        <Message message={m.message} key = {m.id}/>
     );
 
     const onSendMassageClick = () => {
