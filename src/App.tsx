@@ -25,7 +25,7 @@ function App() {
             <Navbar />
             <div className={"app-wrapper-content"}>
                 <Route exact path="/" render={() => <Redirect to= "/profile" />} />
-                <Route path="/profile" render={() => <ProfileContainer />} />
+                <Route path="/profile/:id?" render={() => <ProfileContainer />} />
                 <Route path="/users" component={()=> <UsersContainer/>} />
                 <Route path="/dialogs" component={()=> <DialogsContainer/>} />
             </div>
