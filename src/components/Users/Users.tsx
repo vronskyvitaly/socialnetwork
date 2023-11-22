@@ -1,10 +1,8 @@
 import React, {FC} from 'react';
 import s from "components/Users/Users.module.css";
-import {UserType} from "redux/users-reducer";
 import userPhoto from "../../components/assets/img/userPhoto.webp"
 import {NavLink} from "react-router-dom";
-import axios from "axios";
-import {GetProfileType} from "components/Profile/ProfileContainer";
+import {usersAPI, UserType} from "api/users-api";
 
 
 
@@ -42,16 +40,9 @@ const Users:FC<T_Users> = (props) => {
                             {u.followed ? (
                                 <button className={s.btn + " " + s.btn__unfollow} onClick={() =>
                                 {
-                                    axios
-                                        .delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
-                                            {
-                                                withCredentials: true,
-                                                headers: {
-                                                    "API-KEY": "db9e3cd2-c07a-4ab2-ac3b-047c620e81a9"
-                                                }
-                                            })
-                                        .then((res) => {
-                                            if (res.data.resultCode == 0 ){
+                                    usersAPI.upFollowedUser(u.id)
+                                        .then((data) => {
+                                            if (data.resultCode == 0 ){
                                                 console.log ("Одписался")
                                                 props.changeFollow(u.id, false)
                                             }
@@ -64,10 +55,9 @@ const Users:FC<T_Users> = (props) => {
                                 <button className={s.btn } onClick={() =>
 
                                 {
-                                    axios
-                                        .post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,{},{withCredentials:true})
-                                        .then((res) => {
-                                               if (res.data.resultCode == 0 ){
+                                    usersAPI.followedUser(u.id)
+                                        .then((data) => {
+                                               if (data.resultCode == 0 ){
                                                    console.log ("Удалить из друзей")
                                                    props.changeFollow(u.id, true)
                                                }

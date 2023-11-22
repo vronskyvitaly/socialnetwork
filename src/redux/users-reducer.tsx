@@ -1,20 +1,6 @@
-type locationType = {
-    city: string,
-    country: string
-}
+import { UserType} from "api/users-api";
 
 
-export type UserType = {
-    id: number,
-    followed: boolean,
-    photos: {
-        small: null | string,
-        large: null | string
-    },
-    name: string,
-    status: string
-    location: locationType
-}
 
 
 type StateUserType = {

@@ -1,15 +1,8 @@
-
-
-
-export type UserDataAuthType = {
-    id: number | null,
-    email: string | null,
-    login: string | null
-}
+import {UserAuthType} from "api/auth-api";
 
 
 export type StateAuthType = {
-    data: UserDataAuthType
+    data: UserAuthType
     isAuth:boolean
 }
 
@@ -25,12 +18,11 @@ let initialState:StateAuthType  = {
 
 
 type ActionTypes  =
-    | setUsersDataACType
+    | ReturnType<typeof setUsersDataAC>
 
 
 
 export const authReducer = (state = initialState, action:ActionTypes):StateAuthType=> {
-
     switch (action.type) {
         case "SET-USERS-DATA":
             return {
@@ -44,18 +36,11 @@ export const authReducer = (state = initialState, action:ActionTypes):StateAuthT
 
 };
 
-
-
-
-export type setUsersDataACType = ReturnType<typeof setUsersDataAC>
-export const setUsersDataAC = (data:UserDataAuthType)=> {
-
-    return {
-        type: "SET-USERS-DATA",
+export const setUsersDataAC = (data:UserAuthType)=> ({
+        type: "SET-USERS-DATA" as const,
         payload: {
             data
         }
-    } as const
-}
+})
 
 

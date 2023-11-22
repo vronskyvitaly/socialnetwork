@@ -10,7 +10,7 @@ const reducers = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     usersPage: usersReducer,
-    authPage: authReducer
+    auth: authReducer
 });
 
 export const store = createStore(reducers);
