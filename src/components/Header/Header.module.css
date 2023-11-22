@@ -2,7 +2,9 @@
     grid-area: h;
     background-color: blue;
     display: flex;
+    justify-content: space-between;
     align-items: center;
+    padding-right: 20px;
 }
 
 
@@ -11,4 +13,18 @@
     font-weight: bold;
     padding-left: 10px;
     color: #ffffff;
+}
+
+
+.loginBlock {
+    font-weight: bold;
+    color: white;
+}
+
+.link{
+    color: white;
+}
+
+.active {
+    color: #0a0a0a;
 }

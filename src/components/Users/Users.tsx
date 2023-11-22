@@ -3,6 +3,8 @@ import s from "components/Users/Users.module.css";
 import {UserType} from "redux/users-reducer";
 import userPhoto from "../../components/assets/img/userPhoto.webp"
 import {NavLink} from "react-router-dom";
+import axios from "axios";
+import {GetProfileType} from "components/Profile/ProfileContainer";
 
 
 
@@ -38,9 +40,42 @@ const Users:FC<T_Users> = (props) => {
                                 <img src={u.photos.small != null ? u.photos.small: userPhoto} className={s.img}/>
                             </NavLink>
                             {u.followed ? (
-                                <button onClick={() => props.changeFollow(u.id, false)}>Отписаться</button>
+                                <button className={s.btn + " " + s.btn__unfollow} onClick={() =>
+                                {
+                                    axios
+                                        .delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
+                                            {
+                                                withCredentials: true,
+                                                headers: {
+                                                    "API-KEY": "db9e3cd2-c07a-4ab2-ac3b-047c620e81a9"
+                                                }
+                                            })
+                                        .then((res) => {
+                                            if (res.data.resultCode == 0 ){
+                                                console.log ("Одписался")
+                                                props.changeFollow(u.id, false)
+                                            }
+                                        });
+
+                                }
+
+                                }>Удалить из друзей</button>
                             ) : (
-                                <button onClick={() => props.changeFollow(u.id, true)}>Подписаться</button>
+                                <button className={s.btn } onClick={() =>
+
+                                {
+                                    axios
+                                        .post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,{},{withCredentials:true})
+                                        .then((res) => {
+                                               if (res.data.resultCode == 0 ){
+                                                   console.log ("Удалить из друзей")
+                                                   props.changeFollow(u.id, true)
+                                               }
+                                        });
+
+                                }
+
+                                }>Добавить в друзья</button>
                             )}
 
                         </div>
