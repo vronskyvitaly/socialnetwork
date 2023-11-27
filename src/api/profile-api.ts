@@ -1,19 +1,10 @@
 import axios from "axios";
+import {axiosInstance} from "api/axiosInstance";
 
-
-const  instance = axios.create(
-    {
-        withCredentials: true,
-        baseURL: `https://social-network.samuraijs.com/api/1.0/profile`,
-        headers: {
-            "API-KEY": "db9e3cd2-c07a-4ab2-ac3b-047c620e81a9"
-        }
-    }
-)
 
 export const profileAPI = {
     getProfileUser(userId:string) {
-        return instance.get<GetProfileType>(`/${userId}`)
+        return axiosInstance.get<GetProfileType>(`profile/${userId}`)
             .then(res=> res.data)
 
     },

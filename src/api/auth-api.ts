@@ -1,21 +1,11 @@
-import axios from "axios";
+import {axiosInstance} from "api/axiosInstance";
 
-
-const  instance = axios.create(
-    {
-        withCredentials: true,
-        baseURL: `https://social-network.samuraijs.com/api/1.0/auth`,
-        headers: {
-            "API-KEY": "db9e3cd2-c07a-4ab2-ac3b-047c620e81a9"
-        }
-    }
-)
 
 
 export const authAPI = {
 
     authUser() {
-        return instance.get<ResponseAuthUserType>(`/me`)
+        return axiosInstance.get<ResponseAuthUserType>(`auth/me`)
             .then(res=> res.data.data)
     },
 }
