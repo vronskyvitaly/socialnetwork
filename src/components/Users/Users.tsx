@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import s from "components/Users/Users.module.css";
 import userPhoto from "../../components/assets/img/userPhoto.webp"
 import {NavLink} from "react-router-dom";
-import {usersAPI, UserType} from "api/users-api";
+import {UserType} from "api/users-api";
 
 
 
@@ -11,10 +11,13 @@ type T_Users = {
     totalUsersCount:number
     pageSize:number
     onPageChanged:(pageNumber:number) =>void
-    changeFollow:(userID:number, follow: boolean) =>void
+    followingInProgress: number[]
+    upFollowTC : (userID:number) => void
+    followTC : (userID:number) => void
 }
 
 const Users:FC<T_Users> = (props) => {
+
 
     const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
     const pages = []
@@ -38,34 +41,13 @@ const Users:FC<T_Users> = (props) => {
                                 <img src={u.photos.small != null ? u.photos.small: userPhoto} className={s.img}/>
                             </NavLink>
                             {u.followed ? (
-                                <button className={s.btn + " " + s.btn__unfollow} onClick={() =>
-                                {
-                                    usersAPI.upFollowedUser(u.id)
-                                        .then((data) => {
-                                            if (data.resultCode == 0 ){
-                                                console.log ("Одписался")
-                                                props.changeFollow(u.id, false)
-                                            }
-                                        });
-
-                                }
-
-                                }>Удалить из друзей</button>
+                                <button className={s.btn + " " + s.btn__unfollow}
+                                        disabled={props.followingInProgress.some(id=> id === u.id)}
+                                        onClick={() => {props.upFollowTC(u.id)}}>Удалить из друзей</button>
                             ) : (
-                                <button className={s.btn } onClick={() =>
-
-                                {
-                                    usersAPI.followedUser(u.id)
-                                        .then((data) => {
-                                               if (data.resultCode == 0 ){
-                                                   console.log ("Удалить из друзей")
-                                                   props.changeFollow(u.id, true)
-                                               }
-                                        });
-
-                                }
-
-                                }>Добавить в друзья</button>
+                                <button className={s.btn }
+                                        disabled={props.followingInProgress.some(id=> id === u.id)}
+                                        onClick={() => {props.followTC(u.id)}}>Добавить в друзья</button>
                             )}
 
                         </div>
@@ -85,3 +67,5 @@ const Users:FC<T_Users> = (props) => {
 };
 
 export default Users;
+
+

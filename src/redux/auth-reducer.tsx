@@ -17,12 +17,12 @@ let initialState:StateAuthType  = {
     }
 
 
-type ActionTypes  =
+export type AuthReducerActionTypes  =
     | ReturnType<typeof setUsersDataAC>
 
 
 
-export const authReducer = (state = initialState, action:ActionTypes):StateAuthType=> {
+export const authReducer = (state = initialState, action:AuthReducerActionTypes):StateAuthType=> {
     switch (action.type) {
         case "SET-USERS-DATA":
             return {

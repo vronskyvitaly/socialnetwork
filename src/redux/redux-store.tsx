@@ -1,23 +1,46 @@
-import { createStore, combineReducers } from 'redux';
-import { profileReducer } from './profile-reducer';
-import { dialogsReducer } from './dialogs-reducer';
-import {usersReducer} from "redux/users-reducer";
-import {authReducer} from "redux/auth-reducer";
+import {AnyAction, applyMiddleware, combineReducers, createStore} from 'redux';
+import {profileReducer, ProfileReducerActionTypes} from './profile-reducer';
+import {dialogsReducer, DialogsReducerActionTypes} from './dialogs-reducer';
+import {UserReducerActionTypes, usersReducer} from "redux/users-reducer";
+import {authReducer, AuthReducerActionTypes} from "redux/auth-reducer";
+import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
+import {TypedUseSelectorHook,useSelector} from "react-redux";
 
 
-
-const reducers = combineReducers({
+const rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     usersPage: usersReducer,
     auth: authReducer
 });
 
-export const store = createStore(reducers);
+export const store = createStore(rootReducer, applyMiddleware(thunk));
+// определить автоматически тип всего объекта состояния
+export type AppRootStateType = ReturnType<typeof rootReducer>
+
+export type AppDispatchType = ThunkDispatch<AppRootStateType, unknown, AnyAction>;
 
 
-export type RootStateType = ReturnType<typeof reducers>
+// типизируем наш Dispatch
+// export const useAppDispatch = useDispatch<AppDispatchType>
+// типизируем наш useSelector
+export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector;
+
+
+// ВСЕ ТИПЫ ЭКШЕНОВ ДЛЯ ВСЕГО APP
+export type AppActionsType = ProfileReducerActionTypes | DialogsReducerActionTypes | UserReducerActionTypes | AuthReducerActionTypes
+// типизируем Dispatch для thunk
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AppActionsType>
+
+
+
+export type RootStateType = ReturnType<typeof rootReducer>
 export type StoreDispatch = typeof store.dispatch
 
 // @ts-ignore
-window.store = store
+// window.store = store
+
+
+
+
+

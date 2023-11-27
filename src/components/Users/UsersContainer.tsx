@@ -2,52 +2,36 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {RootStateType} from 'redux/redux-store';
 import {
-    changeFollowAC,
+    followTC, getUsersTC,
     setCurrentPageAC,
-    setUsersAC,
-    setUsersTotalCountAC,
-    toggleIsFetchingAC,
+    toggleIsFetchingProgressAC, upFollowTC,
 } from 'redux/users-reducer';
 import Users from 'components/Users/Users';
 import {Preloader} from 'components/common/Preloader/Preloader';
-import {usersAPI, UserType} from "api/users-api";
+import {UserType} from "api/users-api";
 
 type UsersContainerPropsType = {
     users: UserType[];
     pageSize: number;
     totalUsersCount: number;
     currentPage: number;
-    changeFollow: ( userID: number, follow: boolean ) => void;
-    setUsers: ( users: UserType[] ) => void;
-    setCurrentPage: ( pageNumber: number ) => void;
-    setUsersTotalCount: ( totalCount: number ) => void;
-    toggleIsFetching: ( fetching: boolean ) => void;
+    toggleIsFetchingProgress: ( fetching: boolean , userID: number) => void;
+    followingInProgress: number[]
     isFetching: boolean;
+    getUsersTC : (currentPage:number, pageSize: number) => void
+    upFollowTC : (userID:number)=>void
+    followTC : (userID:number)=>void
 };
 
 type UsersContainerStateType = {};
 
-class UsersContainer extends Component<UsersContainerPropsType, UsersContainerStateType> {
+class UsersContainer extends Component<UsersContainerPropsType & UsersContainerStateType> {
     componentDidMount() {
-        this.props.toggleIsFetching ( true );
-
-        usersAPI.getUsers ( this.props.currentPage, this.props.pageSize )
-            .then ( ( data ) => {
-                this.props.setUsers ( data.items );
-                this.props.setUsersTotalCount ( data.totalCount );
-                this.props.toggleIsFetching ( false );
-            } );
+        this.props.getUsersTC(this.props.currentPage, this.props.pageSize )
     }
 
     onPageChanged = ( pageNumber: number ) => {
-        this.props.setCurrentPage ( pageNumber );
-        this.props.toggleIsFetching ( true );
-
-        usersAPI.getUsers ( pageNumber, this.props.pageSize )
-            .then ( ( data ) => {
-                this.props.setUsers ( data.items );
-                this.props.toggleIsFetching ( false );
-            } );
+        this.props.getUsersTC(pageNumber, this.props.pageSize )
     };
 
     render() {
@@ -61,7 +45,10 @@ class UsersContainer extends Component<UsersContainerPropsType, UsersContainerSt
                         totalUsersCount={this.props.totalUsersCount}
                         pageSize={this.props.pageSize}
                         onPageChanged={this.onPageChanged}
-                        changeFollow={this.props.changeFollow}
+                        followingInProgress = {this.props.followingInProgress}
+                        upFollowTC = {this.props.upFollowTC}
+                        followTC = {this.props.followTC}
+
                     />
                 )}
             </>
@@ -75,37 +62,20 @@ const mapStateToProps = ( state: RootStateType ) => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        followingInProgress: state.usersPage.followingInProgress
     };
 };
 
-/*  // в 58 уроке передал как объект
- const mapDispatchToProps = (dispatch: StoreDispatch) => {
- return {
- changeFollow: (userID: number, follow: boolean) => {
- dispatch(changeFollowAC(userID, follow));
- },
- setUsers: (users: UserType[]) => {
- dispatch(setUsersAC(users));
- },
- setCurrentPage: (pageNumber: number) => {
- dispatch(setCurrentPageAC(pageNumber));
- },
- setUsersTotalCount: (totalCount: number) => {
- dispatch(setUsersTotalCountAC(totalCount));
- },
- toggleIsFetching: (fetching: boolean) => {
- dispatch(toggleIsFetchingAC(fetching));
- }
- };
- };*/
 
 
 export default connect ( mapStateToProps, {
-    changeFollow: changeFollowAC,
-    setUsers: setUsersAC,
     setCurrentPage: setCurrentPageAC,
-    setUsersTotalCount: setUsersTotalCountAC,
-    toggleIsFetching: toggleIsFetchingAC
+    toggleIsFetchingProgress: toggleIsFetchingProgressAC,
+    getUsersTC,
+    followTC,
+    upFollowTC
 
 } ) ( UsersContainer );
+
+

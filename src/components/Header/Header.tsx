@@ -1,7 +1,7 @@
 import React from 'react';
 import  s from 'components/Header/Header.module.css';
 import {NavLink} from "react-router-dom";
-import {HeaderContainerType} from "components/Header/Header-container";
+import {HeaderContainerType} from "components/Header/HeaderContainer";
 
 export const Header = (props:HeaderContainerType) => {
 

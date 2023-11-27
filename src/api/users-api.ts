@@ -1,4 +1,3 @@
-import axios from "axios";
 import {axiosInstance} from "api/axiosInstance";
 
 
@@ -16,7 +15,7 @@ export const usersAPI = {
     },
 
     followedUser(id:number) {
-        return axiosInstance.post(`follow/${id}`, {})
+        return axiosInstance.post(`follow/${id}`)
             .then(res=> res.data)
     }
 }

@@ -25,9 +25,9 @@ let initialState:StateDialogsPageType = {
 }
 
 
-type ActionTypes  = updateNewMassageBodyACType | sendMassageACType
+export type DialogsReducerActionTypes  = updateNewMassageBodyACType | sendMassageACType
 
-export const dialogsReducer = (state = initialState, action: ActionTypes) => {
+export const dialogsReducer = (state = initialState, action: DialogsReducerActionTypes) => {
 
     switch (action.type) {
         case "UPDATE-NEW-MASSAGE-BODY":

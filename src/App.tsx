@@ -1,23 +1,13 @@
 import React from 'react';
 import './App.css';
-
 import { Navbar } from "components/Navbar/Navbar";
-
 import { Redirect, Route } from "react-router-dom";
 import UsersContainer from "components/Users/UsersContainer";
 import DialogsContainer from "components/Dialogs/DialogsContainer";
 import ProfileContainer from "components/Profile/ProfileContainer";
-import HeaderContainer from "components/Header/Header-container";
+import HeaderContainer from "components/Header/HeaderContainer";
 
 
-
-/*
-type AppPropsType = {
-    state:StateType
-    dispatch:(action:ActionTypes)=>void
-    store:StoreType
-}
-*/
 
 function App() {
     return (

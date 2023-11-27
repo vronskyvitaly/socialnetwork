@@ -19,13 +19,13 @@ let initialState: StateProfilePageType = {
 }
 
 
-type ActionTypes =
+export type ProfileReducerActionTypes =
     | addPostACType
     | updateNewPostTextACType
     | setUsersProfileACType
 
 
-export const profileReducer = ( state = initialState, action: ActionTypes ): StateProfilePageType => {
+export const profileReducer = ( state = initialState, action: ProfileReducerActionTypes ): StateProfilePageType => {
 
     switch (action.type) {
         case "ADD-POST":
