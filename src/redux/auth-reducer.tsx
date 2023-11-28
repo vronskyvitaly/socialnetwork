@@ -1,4 +1,5 @@
-import {UserAuthType} from "api/auth-api";
+import {authAPI, UserAuthType} from "api/auth-api";
+import {AppThunk} from "redux/redux-store";
 
 
 export type StateAuthType = {
@@ -43,4 +44,11 @@ export const setUsersDataAC = (data:UserAuthType)=> ({
         }
 })
 
+
+
+export const getAuthUserDataTC = ():AppThunk => (dispatsh) => {
+    authAPI.authUser().then((data) => {
+        dispatsh(setUsersDataAC(data))
+    });
+}
 

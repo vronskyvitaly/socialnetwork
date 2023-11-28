@@ -1,5 +1,6 @@
 import {PostsDataType} from "redux/store";
-import {GetProfileType} from "api/profile-api";
+import {GetProfileType, profileAPI} from "api/profile-api";
+import {Dispatch} from "redux";
 
 
 export type StateProfilePageType = {
@@ -29,14 +30,6 @@ export const profileReducer = ( state = initialState, action: ProfileReducerActi
 
     switch (action.type) {
         case "ADD-POST":
-            /*
-             let newPost = {"id": new Date().getTime(), "message": state.newPostsText};
-             state.posts.push(newPost)
-             // первый способ очистить input после добавления
-             state.newPostsText = ""
-             return state
-             */
-
             let newPost = {id: new Date ().getTime (), message: action.newPostText};
             return {
                 ...state,
@@ -91,4 +84,11 @@ export const setUsersProfileAC = ( profile: GetProfileType ) => {
     } as const
 }
 
+
+export const getUserProfileTC = (userId:string) => (dispatsh:Dispatch) => {
+    profileAPI.getProfileUser(userId)
+        .then((data) => {
+            dispatsh(setUsersProfileAC(data))
+        });
+}
 
