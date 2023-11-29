@@ -6,11 +6,12 @@ import userPhoto from "../../assets/img/userPhoto.webp"
 import imgTest from "../../assets/img/imTest.jpg"
 
 
-
 export const ProfileInfo:FC<ProfileContainerType> = (props) => {
     if (!props.profile){
         return <Preloader/>
     }
+
+
     return (
         <div>
             <div className={s.wall}>

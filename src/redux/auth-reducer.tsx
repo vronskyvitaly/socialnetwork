@@ -14,7 +14,7 @@ let initialState:StateAuthType  = {
          email: null,
          login:null
      },
-    isAuth:false
+    isAuth: false
     }
 
 
@@ -47,8 +47,11 @@ export const setUsersDataAC = (data:UserAuthType)=> ({
 
 
 export const getAuthUserDataTC = ():AppThunk => (dispatsh) => {
-    authAPI.authUser().then((data) => {
-        dispatsh(setUsersDataAC(data))
+    authAPI.authUser()
+        .then(response => {
+        if (response.data.resultCode === 0){
+            dispatsh(setUsersDataAC(response.data.data))
+        }
     });
 }
 

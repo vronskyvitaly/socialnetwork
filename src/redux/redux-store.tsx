@@ -4,7 +4,7 @@ import {dialogsReducer, DialogsReducerActionTypes} from './dialogs-reducer';
 import {UserReducerActionTypes, usersReducer} from "redux/users-reducer";
 import {authReducer, AuthReducerActionTypes} from "redux/auth-reducer";
 import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
-import {TypedUseSelectorHook,useSelector} from "react-redux";
+import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 
 
 const rootReducer = combineReducers({
@@ -22,7 +22,7 @@ export type AppDispatchType = ThunkDispatch<AppRootStateType, unknown, AnyAction
 
 
 // типизируем наш Dispatch
-// export const useAppDispatch = useDispatch<AppDispatchType>
+export const useAppDispatch: ()=> AppDispatchType = useDispatch
 // типизируем наш useSelector
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector;
 
