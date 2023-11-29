@@ -1,11 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {RootStateType} from 'redux/redux-store';
-import {
-    followTC, getUsersTC,
-    setCurrentPageAC,
-    toggleIsFetchingProgressAC, upFollowTC,
-} from 'redux/users-reducer';
+import {followTC, getUsersTC, setCurrentPageAC, toggleIsFetchingProgressAC, upFollowTC,} from 'redux/users-reducer';
 import Users from 'components/Users/Users';
 import {Preloader} from 'components/common/Preloader/Preloader';
 import {UserType} from "api/users-api";
@@ -79,3 +75,16 @@ export default connect ( mapStateToProps, {
 } ) ( UsersContainer );
 
 
+
+/*
+const AuthRedirectComponent = withAuthRedirect(UsersContainer);
+
+export default connect ( mapStateToProps, {
+    setCurrentPage: setCurrentPageAC,
+    toggleIsFetchingProgress: toggleIsFetchingProgressAC,
+    getUsersTC,
+    followTC,
+    upFollowTC
+
+} ) (withRouter(AuthRedirectComponent)  );
+*/
