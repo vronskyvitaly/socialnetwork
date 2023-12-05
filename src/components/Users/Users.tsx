@@ -5,7 +5,6 @@ import {NavLink} from "react-router-dom";
 import {UserType} from "api/users-api";
 
 
-
 type T_Users = {
     users:UserType []
     totalUsersCount:number
@@ -38,7 +37,7 @@ const Users:FC<T_Users> = (props) => {
                     <div className={s.user_wrapper} key={u.id}>
                         <div className={s.blockOne}>
                             <NavLink to={`/profile/${u.id}`}>
-                                <img src={u.photos.small != null ? u.photos.small: userPhoto} className={s.img}/>
+                                <img className={s.img} src={u.photos.small != null ? u.photos.small: userPhoto}/>
                             </NavLink>
                             {u.followed ? (
                                 <button className={s.btn + " " + s.btn__unfollow}
