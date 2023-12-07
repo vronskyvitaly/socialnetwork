@@ -7,6 +7,16 @@ export const profileAPI = {
             .then(res=> res.data)
 
     },
+
+    getStatusUser(userId:string) {
+        return axiosInstance.get(`profile/status/${userId}`)
+            .then(res=> res.data)
+    },
+
+
+    updateStatusUser(status:string) {
+        return axiosInstance.put(`profile/status`, {status: status})
+    }
 }
 
 

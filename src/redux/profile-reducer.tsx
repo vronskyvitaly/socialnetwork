@@ -7,6 +7,7 @@ export type StateProfilePageType = {
     posts: PostsDataType[]
     newPostsText: string
     profile: GetProfileType | null
+    status: string
 }
 
 
@@ -16,7 +17,8 @@ let initialState: StateProfilePageType = {
         {id: 2, message: "Two message"},
     ],
     newPostsText: "",
-    profile: null
+    profile: null,
+    status: ""
 }
 
 
@@ -24,6 +26,7 @@ export type ProfileReducerActionTypes =
     | addPostACType
     | updateNewPostTextACType
     | setUsersProfileACType
+    | setUserStatusACType
 
 
 export const profileReducer = ( state = initialState, action: ProfileReducerActionTypes ): StateProfilePageType => {
@@ -47,6 +50,12 @@ export const profileReducer = ( state = initialState, action: ProfileReducerActi
             return {
                 ...state, profile: action.payload.profile
             }
+
+        case "SET-USER-STATUS":
+            return {
+                ...state, status: action.payload.newStatus
+            }
+
         default:
             return state
     }
@@ -85,10 +94,40 @@ export const setUsersProfileAC = ( profile: GetProfileType ) => {
 }
 
 
+export type setUserStatusACType = ReturnType<typeof setUserStatusAC>
+export const setUserStatusAC = ( newStatus: string) => {
+    return {
+        type: "SET-USER-STATUS",
+        payload: {
+            newStatus
+        }
+    } as const
+}
+
+
+
 export const getUserProfileTC = (userId:string) => (dispatsh:Dispatch) => {
     profileAPI.getProfileUser(userId)
         .then((data) => {
             dispatsh(setUsersProfileAC(data))
+        });
+}
+
+
+export const getUserStatusTC = (userId:string) => (dispatsh:Dispatch) => {
+    profileAPI.getStatusUser(userId)
+        .then((data) => {
+            dispatsh(setUserStatusAC(data))
+        });
+}
+
+
+export const updateUserStatusTC = (newStatus:string) => (dispatsh:Dispatch) => {
+    profileAPI.updateStatusUser(newStatus)
+        .then((res) => {
+            if (res.data.resultCode === 0) {
+                dispatsh(setUserStatusAC(newStatus))
+            }
         });
 }
 
