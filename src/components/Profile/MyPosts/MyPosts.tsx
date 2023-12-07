@@ -32,6 +32,7 @@ export const MyPosts:FC<MyPostsPropsType> = (props) => {
     ));
 
 
+
     return (
         <div className={s.my_Posts_wrapper}>
             <div>
